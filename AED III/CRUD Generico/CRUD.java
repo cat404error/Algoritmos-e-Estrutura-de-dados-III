@@ -107,10 +107,11 @@ public class CRUD<T extends Registro> {
 
             this.arquivo.seek(this.arquivo.getFilePointer()-1);
             long pos = this.arquivo.getFilePointer();
+            int tamanhoDoRegistro;
 
             if(this.arquivo.readBoolean()){
 
-                int tamanhoDoRegistro = this.arquivo.readInt();
+                tamanhoDoRegistro = this.arquivo.readInt();
                 byte[] b = new byte[tamanhoDoRegistro]; 
 
                 this.arquivo.read(b);
@@ -143,8 +144,10 @@ public class CRUD<T extends Registro> {
                     this.arquivo.close();
 
                     return true;
-                }               
-            }
+                }
+            } 
+            
+            this.arquivo.seek(pos + this.arquivo.readInt());            
         }
 
         this.arquivo.close();
@@ -187,5 +190,4 @@ public class CRUD<T extends Registro> {
 
         return false;
     }
-
 }

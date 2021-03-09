@@ -20,7 +20,7 @@ public class Main {
             // ----------------------------------------- Create
 
             id1 = crudProdutos.create(p1);
-            p1.setID(id1);
+            p1.setID(id1);            
 
             id2 = crudProdutos.create(p2);
             p2.setID(id2);
@@ -37,11 +37,11 @@ public class Main {
 
             p1.setFabricante("FABER CASTEL");
             crudProdutos.update(p1);
-            System.out.println(crudProdutos.read(id1));            
+            //System.out.println(crudProdutos.read(id1));            
 
             p2.setFabricante("BIC");
             crudProdutos.update(p2);
-            System.out.println(crudProdutos.read(id2));
+            //System.out.println(crudProdutos.read(id2));
 
             // ----------------------------------------- Delete
             
