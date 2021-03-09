@@ -14,7 +14,12 @@ As seguintes funcionalidades foram implementadas:
 
 ## 1.2 Problemas de implementação
 
-Tive muita dificuldade com o metodo de update o codigo esta me retornando `java.io.EOFException`, o erro é retornado apenas quando tento fazer o update de algum registro. Não consegui identificar o motivo.
+Tive muita dificuldade com o metodo de update o codigo esta me retornando `java.io.EOFException`, o erro é retornado apenas quando tento fazer o update de algum registro. 
+
+![Terminal](img/terminal.png)
+
+
+Não consegui identificar o motivo.
 
 # 2. Licença
 
