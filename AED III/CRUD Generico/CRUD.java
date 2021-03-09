@@ -60,7 +60,7 @@ public class CRUD<T extends Registro> {
      */
     public T read(int id) throws Exception {
             
-        T objeto = null;
+        T objeto = null;        
 
         this.arquivo = new RandomAccessFile(this.nArquivo, "r");
               
@@ -82,8 +82,15 @@ public class CRUD<T extends Registro> {
 
                 if(objeto.getID() == id){
                     return objeto;
-                }
-            }
+                } 
+
+            } else {
+
+                int pointer = (int)this.arquivo.getFilePointer();
+                int tamanho = this.arquivo.readInt();
+                this.arquivo.seek(pointer + tamanho);
+
+            } 
         }
 
         this.arquivo.close();
@@ -98,7 +105,7 @@ public class CRUD<T extends Registro> {
      * @throws Exception
      */
     public boolean update(T objeto) throws Exception{
-        
+
         this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
 
         this.arquivo.seek(4);
@@ -107,12 +114,11 @@ public class CRUD<T extends Registro> {
 
             this.arquivo.seek(this.arquivo.getFilePointer()-1);
             long pos = this.arquivo.getFilePointer();
-            int tamanhoDoRegistro;
 
             if(this.arquivo.readBoolean()){
 
-                tamanhoDoRegistro = this.arquivo.readInt();
-                byte[] b = new byte[tamanhoDoRegistro]; 
+                int tamanhoDoRegistro = this.arquivo.readInt();
+                byte[] b = new byte[tamanhoDoRegistro];                 
 
                 this.arquivo.read(b);
 
@@ -125,7 +131,7 @@ public class CRUD<T extends Registro> {
 
                     if(tba.length <= tamanhoDoRegistro){
                         
-                        this.arquivo.seek(pos);
+                        this.arquivo.seek(pos);                        
                         this.arquivo.writeBoolean(true); 
                         this.arquivo.writeInt(tamanhoDoRegistro);
                         this.arquivo.write(tba);
@@ -144,10 +150,14 @@ public class CRUD<T extends Registro> {
                     this.arquivo.close();
 
                     return true;
-                }
-            } 
-            
-            this.arquivo.seek(pos + this.arquivo.readInt());            
+                }                
+
+            } else {
+
+                int pointer = (int)this.arquivo.getFilePointer();
+                int tamanho = this.arquivo.readInt();
+                this.arquivo.seek(pointer + tamanho);
+            }
         }
 
         this.arquivo.close();
@@ -189,5 +199,30 @@ public class CRUD<T extends Registro> {
         }
 
         return false;
+    }
+
+
+    public boolean update2(T objeto) throws Exception{
+        
+        if(!delete(objeto.getID())) return false;        
+        T status = createUpdate(objeto);
+        return status == null ? false:true;
+    }
+    
+    private T createUpdate(T objeto) throws Exception {
+        
+        byte[] tba = objeto.toByteArray();
+
+        this.arquivo = new RandomAccessFile(this.nArquivo, "rw");        
+
+        arquivo.seek(this.arquivo.length());          
+
+        this.arquivo.writeBoolean(true);
+        this.arquivo.writeInt(tba.length);
+        this.arquivo.write(tba);
+        
+        this.arquivo.close();        
+
+        return objeto;
     }
 }

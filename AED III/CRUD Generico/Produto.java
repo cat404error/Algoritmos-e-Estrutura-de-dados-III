@@ -34,7 +34,7 @@ public class Produto implements Registro {
 	
 	
 	public String toString() {
-		return "\n[ID....: " + this.idProduto + "\nnome: " + this.nome + "\nfabricante.: " + this.fabricante + "]";
+		return "\nID....: " + this.idProduto + "\nnome: " + this.nome + "\nfabricante.: " + this.fabricante;
 	}
 
 	/**
