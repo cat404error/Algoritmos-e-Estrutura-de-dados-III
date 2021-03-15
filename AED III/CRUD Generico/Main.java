@@ -14,7 +14,7 @@ public class Main {
     
         try {
 
-            new File("dados/produtos.db").delete(); // apagar arquivo anterior
+            new File("dados/produtos.db").delete(); 
             
             new File("dados/produtos.db");
             crudProdutos = new CRUD<>(Produto.class.getConstructor(),"dados/produtos.db");

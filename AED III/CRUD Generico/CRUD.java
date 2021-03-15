@@ -38,14 +38,14 @@ public class CRUD<T extends Registro> {
         arquivo.seek(0);  
         objeto.setID(id);
 
-        arquivo.writeInt(objeto.getID()); // atualizar quantidade de itens
+        arquivo.writeInt(objeto.getID()); 
         arquivo.seek(arquivo.length());
 
         byte[] tba = objeto.toByteArray();
 
-        this.arquivo.writeBoolean(false); // lapide
-        this.arquivo.writeInt(tba.length); // tamanho
-        this.arquivo.write(tba); // dados
+        this.arquivo.writeBoolean(false); 
+        this.arquivo.writeInt(tba.length);
+        this.arquivo.write(tba);
         
         this.arquivo.close();        
 
