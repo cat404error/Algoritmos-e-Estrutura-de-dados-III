@@ -37,13 +37,13 @@ public class Main {
 
             // ----------------------------------------- Update
 
-            // p1.setFabricante("FABER CASTEL");
-            // crudProdutos.update(p1);
-            // System.out.println(crudProdutos.read(id1));            
+            p1.setFabricante("FABER CASTEL");
+            boolean ok = crudProdutos.update(p1);
+            System.out.println(ok);            
 
-            // p3.setFabricante("TILIBRA");
-            // crudProdutos.update(p3);
-            // System.out.println(crudProdutos.read(id3));
+            p3.setFabricante("TILIBRA");
+            ok = crudProdutos.update(p3);
+            System.out.println(ok);
 
             // ----------------------------------------- Delete            
             

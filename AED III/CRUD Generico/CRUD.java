@@ -78,7 +78,7 @@ public class CRUD<T extends Registro> {
                 this.arquivo.read(fba);
 
                 objeto = construtor.newInstance();
-                objeto.fromByteArray(fba);
+                objeto.fromByteArray(fba);                
 
                 if(objeto.getID() == id){
 
@@ -102,30 +102,34 @@ public class CRUD<T extends Registro> {
      * @return true em caso de sucesso
      * @throws Exception
      */
-    public T update(T objeto) throws Exception{
+    public boolean update(T objeto) throws Exception{
         
-        if(delete(objeto.getID()) == false) return null;
-        return createUpdate(objeto);        
+        if(delete(objeto.getID()) == false) return false;
+        createUpdate(objeto);
+        return true;        
     }
     
-    private T createUpdate(T objeto) throws Exception {
+    private void createUpdate(T objeto) throws Exception {
         
         byte[] tba = objeto.toByteArray();
 
-        this.arquivo = new RandomAccessFile(this.nArquivo, "rw");        
+        this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
 
-        this.arquivo.seek(this.arquivo.length());          
+        this.arquivo.seek(this.arquivo.length());
 
         this.arquivo.writeBoolean(false);
         this.arquivo.writeInt(tba.length);
         this.arquivo.write(tba);
         
         this.arquivo.close();        
-
-        return objeto;
     }
 
-
+    /**
+     * Remove logicamente um Registro.
+     * @param id - identificador do objeto a remover
+     * @return valor logico indicando se o objeto foi removido ou nao
+     * @throws Exception
+     */
     public boolean delete(int id) throws Exception{
         
         this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
@@ -164,4 +168,62 @@ public class CRUD<T extends Registro> {
 
         return false;
     }
+
+
+    // public boolean update1(T obj) throws Exception {
+            
+    //     int id = 1;             
+
+    //     this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
+              
+    //     this.arquivo.seek(4);
+        
+    //     int pointer = (int)this.arquivo.getFilePointer();         
+
+    //     while(pointer < this.arquivo.length()){  
+            
+    //         int pos = pointer;
+
+    //         if(!this.arquivo.readBoolean()){
+
+    //             int tamanhoRegistro = this.arquivo.readInt();
+                
+    //             byte [] tba = obj.toByteArray();
+
+    //             if(obj.getID() == id){
+
+    //                 if (tba.length <= tamanhoRegistro){
+                        
+    //                     this.arquivo.seek(pos);
+    //                     this.arquivo.writeBoolean(false);
+    //                     this.arquivo.writeInt(tamanhoRegistro);
+    //                     this.arquivo.write(tba);                        
+
+    //                 } else {
+
+    //                     this.arquivo.seek(pos);
+    //                     this.arquivo.writeBoolean(true);
+    //                     this.arquivo.seek(this.arquivo.length());
+                        
+    //                     this.arquivo.writeBoolean(false);
+    //                     this.arquivo.writeInt(tba.length);
+    //                     this.arquivo.write(tba);                        
+    //                 }
+
+    //                 this.arquivo.close();
+                    
+    //                 return true;
+    //             }
+    //         } 
+
+    //         pointer = (int)this.arquivo.getFilePointer() + this.arquivo.readInt();            
+    //         this.arquivo.seek(pointer);
+            
+    //         id++;
+    //     }
+
+    //     this.arquivo.close();
+
+    //     return false;
+    // }
 }
