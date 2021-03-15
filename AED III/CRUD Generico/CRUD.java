@@ -85,10 +85,16 @@ public class CRUD<T extends Registro> {
                     this.arquivo.close();
                     return objeto;
                 }
-            } 
 
-            pointer = (int)this.arquivo.getFilePointer() + this.arquivo.readInt();            
-            this.arquivo.seek(pointer);
+                pointer = (int)this.arquivo.getFilePointer(); 
+                this.arquivo.seek(pointer);
+
+            } else {
+
+                int tamR = this.arquivo.readInt();
+                pointer = (int)this.arquivo.getFilePointer();
+                this.arquivo.seek(pointer + tamR);
+            }
         }
 
         this.arquivo.close();
@@ -138,7 +144,9 @@ public class CRUD<T extends Registro> {
 
         int pointer = (int)this.arquivo.getFilePointer();
 
-        while(pointer < this.arquivo.length()){              
+        while(pointer < this.arquivo.length()){   
+            
+            int pos = pointer;
             
             if(!this.arquivo.readBoolean()){
 
@@ -152,16 +160,22 @@ public class CRUD<T extends Registro> {
 
                 if(objeto.getID() == id){
                     
-                    this.arquivo.seek(pointer);
+                    this.arquivo.seek(pos);
                     this.arquivo.writeBoolean(true);
                     this.arquivo.close();
 
                     return true;
                 }
-            }
 
-            pointer = (int)this.arquivo.getFilePointer() + this.arquivo.readInt();
-            this.arquivo.seek(pointer);
+                pointer = (int)this.arquivo.getFilePointer(); 
+                this.arquivo.seek(pointer);     
+
+            } else {
+
+                int tamR = this.arquivo.readInt();
+                pointer = (int)this.arquivo.getFilePointer();
+                this.arquivo.seek(pointer + tamR);     
+            }
         }
 
         this.arquivo.close();
@@ -169,61 +183,74 @@ public class CRUD<T extends Registro> {
         return false;
     }
 
+    /**
+     * Atualiza um registro.
+     * @param obj - referencia do registro a ser atualizado.
+     * @return true em caso de sucesso
+     * @throws Exception
+     */
+    public boolean update1(T obj) throws Exception {
 
-    // public boolean update1(T obj) throws Exception {
-            
-    //     int id = 1;             
-
-    //     this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
+        this.arquivo = new RandomAccessFile(this.nArquivo, "rw");
               
-    //     this.arquivo.seek(4);
+        this.arquivo.seek(4);
         
-    //     int pointer = (int)this.arquivo.getFilePointer();         
+        int pointer = (int)this.arquivo.getFilePointer();         
 
-    //     while(pointer < this.arquivo.length()){  
+        while(pointer < this.arquivo.length()){ 
             
-    //         int pos = pointer;
+            int pos = pointer;
 
-    //         if(!this.arquivo.readBoolean()){
+            if(!this.arquivo.readBoolean()){
 
-    //             int tamanhoRegistro = this.arquivo.readInt();
+                int tamanhoRegistro = this.arquivo.readInt();
                 
-    //             byte [] tba = obj.toByteArray();
+                byte [] tba = obj.toByteArray(); 
+                byte [] fba = new byte [tamanhoRegistro]; 
+                
+                this.arquivo.read(fba);
 
-    //             if(obj.getID() == id){
+                T objeto = construtor.newInstance(); 
+                objeto.fromByteArray(fba);
 
-    //                 if (tba.length <= tamanhoRegistro){
+                if(obj.getID() == objeto.getID()){
+
+                    if (tba.length <= tamanhoRegistro){
                         
-    //                     this.arquivo.seek(pos);
-    //                     this.arquivo.writeBoolean(false);
-    //                     this.arquivo.writeInt(tamanhoRegistro);
-    //                     this.arquivo.write(tba);                        
+                        this.arquivo.seek(pos);
+                        this.arquivo.writeBoolean(false);
+                        this.arquivo.writeInt(tamanhoRegistro);
+                        this.arquivo.write(tba);
 
-    //                 } else {
+                    } else {                       
 
-    //                     this.arquivo.seek(pos);
-    //                     this.arquivo.writeBoolean(true);
-    //                     this.arquivo.seek(this.arquivo.length());
+                        this.arquivo.seek(pos);
+                        this.arquivo.writeBoolean(true);
+                        this.arquivo.seek(this.arquivo.length());
                         
-    //                     this.arquivo.writeBoolean(false);
-    //                     this.arquivo.writeInt(tba.length);
-    //                     this.arquivo.write(tba);                        
-    //                 }
+                        this.arquivo.writeBoolean(false);
+                        this.arquivo.writeInt(tba.length);
+                        this.arquivo.write(tba); 
+                    }
 
-    //                 this.arquivo.close();
+                    this.arquivo.close();
                     
-    //                 return true;
-    //             }
-    //         } 
+                    return true;
+                }                
+                
+                pointer = (int)this.arquivo.getFilePointer(); 
+                this.arquivo.seek(pointer);                            
 
-    //         pointer = (int)this.arquivo.getFilePointer() + this.arquivo.readInt();            
-    //         this.arquivo.seek(pointer);
-            
-    //         id++;
-    //     }
+            } else {
 
-    //     this.arquivo.close();
+                int tamR = this.arquivo.readInt();
+                pointer = (int)this.arquivo.getFilePointer();
+                this.arquivo.seek(pointer + tamR);
+            }
+        }
 
-    //     return false;
-    // }
+        this.arquivo.close();
+
+        return false;
+    }
 }

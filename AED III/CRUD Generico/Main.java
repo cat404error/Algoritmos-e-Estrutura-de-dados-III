@@ -34,16 +34,18 @@ public class Main {
 
             System.out.println(crudProdutos.read(id1));
             System.out.println(crudProdutos.read(id3));
+            System.out.println("");
 
             // ----------------------------------------- Update
-
+            
             p1.setFabricante("FABER CASTEL");
             boolean ok = crudProdutos.update(p1);
-            System.out.println(ok);            
+            System.out.println("atualizado: " + ok + "\nregistro atualizado para: " + crudProdutos.read(id1));
+            System.out.println("");
 
             p3.setFabricante("TILIBRA");
             ok = crudProdutos.update(p3);
-            System.out.println(ok);
+            System.out.println("atualizado: " + ok + "\nregistro atualizado para:" + crudProdutos.read(id3));
 
             // ----------------------------------------- Delete            
             
