@@ -14,6 +14,8 @@ public class Main {
     
         try {
 
+            new File("dados/produtos.db").delete(); // apagar arquivo anterior
+            
             new File("dados/produtos.db");
             crudProdutos = new CRUD<>(Produto.class.getConstructor(),"dados/produtos.db");
 
@@ -26,29 +28,29 @@ public class Main {
             p2.setID(id2);
 
             id3 = crudProdutos.create(p3);
-            p3.setID(id3);
+            p3.setID(id3);            
             
             // ----------------------------------------- Read
 
-            System.out.println(crudProdutos.read(id1).toString());
-            System.out.println(crudProdutos.read(id3).toString());            
+            System.out.println(crudProdutos.read(id1));
+            System.out.println(crudProdutos.read(id3));
 
             // ----------------------------------------- Update
 
             // p1.setFabricante("FABER CASTEL");
-            // crudProdutos.update2(p1);
+            // crudProdutos.update(p1);
             // System.out.println(crudProdutos.read(id1));            
 
-            // p2.setFabricante("BIC");
-            // crudProdutos.update2(p2);
-            // System.out.println(crudProdutos.read(id2));
+            // p3.setFabricante("TILIBRA");
+            // crudProdutos.update(p3);
+            // System.out.println(crudProdutos.read(id3));
 
-            // ----------------------------------------- Delete
+            // ----------------------------------------- Delete            
             
-            if(crudProdutos.delete(id2)){
+            if(crudProdutos.delete(id2) == true){
                 System.out.println("\nProduto removido.");
             } else {
-                System.out.println("\nProduto não foi localizado.");
+                System.out.println("\nNão existe no registro.");
             }
 
         } catch (Exception e) {
