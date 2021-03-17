@@ -16,7 +16,7 @@ As seguintes funcionalidades foram implementadas:
 
 Tive muita dificuldade com o metodo de update tentei fazer de duas maneiras e ambos os o códigos esta me retornaram `java.io.EOFException`, o erro é retornado apenas quando faço o update e logo em seguida tento ler algum registro. Não consegui identificar os motivos. 
 
-(edit) Consegui identificar o motivo do mal funcionamento do codigo. Fiz alterações em todos os metodos do CRUD.
+(EDIT - 15/03/2021) Consegui identificar o motivo do mal funcionamento do codigo. Fiz alterações em todos os metodos do CRUD.
 
 ### - 1.2.1 Código update:
 ```java
@@ -54,6 +54,9 @@ private T createUpdate(T objeto) throws Exception {
 
 * Rayane Paiva - :email: rayanepaiiva@live.com
 
+# 4 - Repositório
+
+[Desafio 1 - CRUD Genérico](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III)
 
 # 3 - Licença
 
