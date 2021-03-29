@@ -54,11 +54,11 @@ private T createUpdate(T objeto) throws Exception {
 
 * Rayane Paiva - :email: rayanepaiiva@live.com
 
-# 4 - Repositório
+# 3 - Repositório
 
 [Desafio 1 - CRUD Genérico](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III)
 
-# 3 - Licença
+# 4 - Licença
 
 The [MIT License](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT) (MIT)
 
