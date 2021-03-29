@@ -56,7 +56,7 @@ private T createUpdate(T objeto) throws Exception {
 
 # 3 - Repositório
 
-[Desafio 1 - CRUD Genérico](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III)
+[Desafio 1 - CRUD Genérico](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III/tree/main/AED%20III/Desafio%201%20-%20CRUD%20Generico)
 
 # 4 - Licença
 
