@@ -18,7 +18,7 @@ As seguintes funcionalidades foram implementadas:
 
 # 3 - Repositório
 
-[Desafio 2 - CRUD Indexado](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III)
+[Desafio 2 - CRUD Indexado](https://github.com/systemagic-91/Algoritmos-e-Estrutura-de-dados-III/tree/main/AED%20III/Desafio%202%20-%20CRUD%20Indexado)
 
 # 4 - Licença
 
